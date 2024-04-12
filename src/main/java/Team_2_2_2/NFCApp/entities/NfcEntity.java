@@ -13,6 +13,10 @@ public class NfcEntity {
     @JoinColumn(name = "objectId", referencedColumnName = "objectId")
     private ObjectEntity objectEntity;
 
+    public NfcEntity(){
+
+    }
+
     public void setNfcId(Long nfcId) {
         this.nfcId = nfcId;
     }
