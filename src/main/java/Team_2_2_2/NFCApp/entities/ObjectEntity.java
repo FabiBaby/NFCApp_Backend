@@ -22,16 +22,16 @@ public class ObjectEntity {
 
     //Foreign keys go here
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "NFCID")
+    @JoinColumn(nullable = false, name = "nfcId")
     private NfcEntity nfc;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private AdminEntity admin;
 
     public ObjectEntity(String objectName, String objectDesc, String objectLocation) {
-        this.objectName = objectName;
-        this.objectDesc = objectDesc;
-        this.objectLocation = objectLocation;
+        setObjectName(objectName);
+        setObjectDesc(objectDesc);
+        setObjectLocation(objectLocation);
     }
 
     public ObjectEntity() {

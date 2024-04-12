@@ -9,7 +9,7 @@ public class NfcEntity {
     private String nfcId;
 
     @OneToOne
-    @JoinColumn(name = "objectId", referencedColumnName = "objectId")
+//    @JoinColumn(name = "objectId", referencedColumnName = "objectId")
     private ObjectEntity objectEntity;
 
     public NfcEntity(){
@@ -17,7 +17,7 @@ public class NfcEntity {
     }
 
     public NfcEntity(String nfcId) {
-        this.nfcId = nfcId;
+        setNfcId(nfcId);
     }
 
     public void setNfcId(String nfcId) {
