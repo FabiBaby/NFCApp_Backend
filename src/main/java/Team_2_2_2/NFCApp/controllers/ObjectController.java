@@ -16,15 +16,9 @@ public class ObjectController {
         this.objectService = objectService;
     }
 
-    @PostMapping
-    public ResponseEntity<ObjectEntity> updateObject(@RequestBody ObjectEntity objectEntity) {
-        ObjectEntity updatedObject = objectService.updateObject(objectEntity);
-        return ResponseEntity.ok(updatedObject);
-    }
-
     @GetMapping(path="/all") //Endpoint to get an object by ID
-    public ResponseEntity<ObjectEntity> getObjectInfo(@PathVariable Long id) {
-        ObjectEntity objectEntity = objectService.getObjectInfo(id);
+    public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String NfcId) {
+        ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(NfcId);
         if(objectEntity == null) {
             return ResponseEntity.notFound().build();
         }

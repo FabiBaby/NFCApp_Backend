@@ -6,7 +6,7 @@ import jakarta.persistence.*;
 @Table(name = "nfc")
 public class NfcEntity {
     @Id
-    private Long nfcId;
+    private String nfcId;
 
     @OneToOne
     @JoinColumn(name = "objectId", referencedColumnName = "objectId")
@@ -16,15 +16,15 @@ public class NfcEntity {
 
     }
 
-    public NfcEntity(Long nfcId) {
+    public NfcEntity(String nfcId) {
         this.nfcId = nfcId;
     }
 
-    public void setNfcId(Long nfcId) {
+    public void setNfcId(String nfcId) {
         this.nfcId = nfcId;
     }
 
-    public Long getNfcId() {
+    public String getNfcId() {
         return nfcId;
     }
 

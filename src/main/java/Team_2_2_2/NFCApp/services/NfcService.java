@@ -19,7 +19,7 @@ public class NfcService {
         this.objectRepository = objectRepository;
     }
 
-    public void addNfc(Long nfcId) {
+    public void addNfc(String nfcId) {
         if(nfcRepository.existsById(nfcId)) {
             return;
         }

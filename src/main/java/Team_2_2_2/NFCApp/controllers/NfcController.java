@@ -18,7 +18,7 @@ public class NfcController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> addNfc(@RequestParam Long nfcId) {
+    public ResponseEntity<String> addNfc(@RequestParam String nfcId) {
         nfcService.addNfc(nfcId);
 
         return ResponseEntity.ok("NFC added");

@@ -22,6 +22,7 @@ public class ObjectEntity {
 
     //Foreign keys go here
     @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(nullable = false, name = "NFCID")
     private NfcEntity nfc;
 
     @ManyToOne(fetch = FetchType.EAGER)

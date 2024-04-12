@@ -1,5 +1,6 @@
 package Team_2_2_2.NFCApp.services;
 
+import Team_2_2_2.NFCApp.entities.NfcEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +15,22 @@ public class ObjectService {
         this.objectRepository = objectRepository;
     }
 
-    public ObjectEntity updateObject(ObjectEntity objectEntity) {
-        objectRepository.saveAndFlush(objectEntity);
-        return objectEntity;
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation) {
+        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation);
+        return objectRepository.saveAndFlush(newObject);
     }
 
-    public ObjectEntity getObjectInfo(Long id) {
-        return objectRepository.getReferenceById(id);
+    public ObjectEntity assignNfc(ObjectEntity objectEntity, NfcEntity nfcEntity) {
+        objectEntity.setNfc(nfcEntity);
+
+        return objectRepository.saveAndFlush(objectEntity);
+    }
+
+    public void removeObject(ObjectEntity objectEntity){
+        objectRepository.delete(objectEntity);
+    }
+
+    public ObjectEntity getObjectInfoByNfcId(String NfcId) {
+        return objectRepository.findByNfc_NfcId(NfcId);
     }
 }
