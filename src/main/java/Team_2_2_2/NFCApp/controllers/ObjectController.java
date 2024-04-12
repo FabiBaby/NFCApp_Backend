@@ -16,7 +16,7 @@ public class ObjectController {
         this.objectService = objectService;
     }
 
-    @GetMapping(path="/get") //Endpoint to get an object by ID
+    @GetMapping(path="/getObjectInfoByNfcId") //Endpoint to get an object by ID
     public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String NfcId) {
         ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(NfcId);
         if(objectEntity == null) {

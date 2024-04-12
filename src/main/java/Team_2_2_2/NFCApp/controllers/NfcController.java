@@ -15,7 +15,7 @@ public class NfcController {
         this.nfcService = nfcService;
     }
 
-    @PostMapping("/add")
+    @PostMapping("/addNfc")
     public ResponseEntity<String> addNfc(@RequestParam String nfcId) {
         nfcService.addNfc(nfcId);
 

@@ -38,7 +38,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/addObject")
+    @PostMapping("/addObject")
     public ResponseEntity<ObjectEntity> addObject(@RequestParam String objectName, @RequestParam String objectDesc,
                                       @RequestParam String objectLocation){
         ObjectEntity objectEntity = adminService.addObject(objectName, objectDesc, objectLocation);
@@ -61,7 +61,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/removeObject")
+    @DeleteMapping("/removeObject")
     public ResponseEntity<String> removeObject(@RequestBody ObjectEntity objectEntity){
         adminService.removeObject(objectEntity);
         return ResponseEntity.status(HttpStatus.CREATED).body("Remove Successful");
