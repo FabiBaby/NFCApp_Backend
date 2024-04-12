@@ -60,4 +60,10 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
+
+    @GetMapping("/removeObject")
+    public ResponseEntity<String> removeObject(@RequestBody ObjectEntity objectEntity){
+        adminService.removeObject(objectEntity);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Remove Successful");
+    }
 }

@@ -48,5 +48,9 @@ public class AdminService {
     public ObjectEntity assignNfc(ObjectEntity objectEntity, NfcEntity nfcEntity){
         return objectService.assignNfc(objectEntity, nfcEntity);
     }
+
+    public void removeObject(ObjectEntity objectEntity){
+        objectService.removeObject(objectEntity);
+    }
 }
 
