@@ -7,7 +7,6 @@ import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class NfcService {
@@ -20,28 +19,12 @@ public class NfcService {
         this.objectRepository = objectRepository;
     }
 
-    public NfcEntity assignNfc(NfcEntity nfcEntity, Long objectId) {
-        try{
-            ObjectEntity objectEntity = objectRepository.getReferenceById(objectId);
-            nfcEntity.setObjectEntity(objectEntity);
-        }
-        catch(EntityNotFoundException e){
-            System.out.println("NFC Not Found");
+    public void addNfc(Long nfcId) {
+        if(nfcRepository.existsById(nfcId)) {
+            return;
         }
 
-        return nfcRepository.saveAndFlush(nfcEntity);
-    }
-
-    @Transactional
-    public NfcEntity unassignNfc(Long nfcId) {
-        // Find the NFC entity by ID
-        NfcEntity nfcEntity = nfcRepository.findById(nfcId)
-                .orElseThrow(() -> new EntityNotFoundException("NFC not found with id: " + nfcId));
-
-        // Unassign the object from the NFC entity
-        nfcEntity.setObjectEntity(null);
-
-        // Save the updated NFC entity
-        return nfcRepository.saveAndFlush(nfcEntity);
+        NfcEntity nfcEntity = new NfcEntity(nfcId);
+        nfcRepository.saveAndFlush(nfcEntity);
     }
 }

@@ -17,45 +17,10 @@ public class NfcController {
         this.nfcService = nfcService;
     }
 
-    @PostMapping //Endpoint to assign nfc
-    public ResponseEntity<NfcEntity> assignNfc(@RequestBody NfcObjectDTO nfcObjectDTO) {
-        NfcEntity newNfc = nfcService.assignNfc(
-                nfcObjectDTO.getNfcEntity(),
-                nfcObjectDTO.getObjectId()
-        );
+    @PostMapping("/")
+    public ResponseEntity<String> addNfc(@RequestParam Long nfcId) {
+        nfcService.addNfc(nfcId);
 
-        return ResponseEntity.ok(newNfc);
-    }
-
-    @PatchMapping("/{id}/unassign") //Use PATCH to indicate a partial update
-    public ResponseEntity<NfcEntity> unassignNfc(@PathVariable Long nfcId) {
-        try{
-            NfcEntity nfcEntity = nfcService.unassignNfc(nfcId);
-            return ResponseEntity.ok(nfcEntity);
-        }
-        catch(EntityNotFoundException e){
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    static class NfcObjectDTO {
-        private NfcEntity nfcEntity;
-        private Long objectId;
-
-        public NfcEntity getNfcEntity() {
-            return nfcEntity;
-        }
-
-        public void setNfcEntity(NfcEntity nfcEntity) {
-            this.nfcEntity = nfcEntity;
-        }
-
-        public Long getObjectId() {
-            return objectId;
-        }
-
-        public void setObjectId(Long objectId) {
-            this.objectId = objectId;
-        }
+        return ResponseEntity.ok("NFC added");
     }
 }

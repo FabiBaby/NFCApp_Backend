@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 @Table(name = "nfc")
 public class NfcEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long nfcId;
 
     @OneToOne
@@ -15,6 +14,10 @@ public class NfcEntity {
 
     public NfcEntity(){
 
+    }
+
+    public NfcEntity(Long nfcId) {
+        this.nfcId = nfcId;
     }
 
     public void setNfcId(Long nfcId) {
