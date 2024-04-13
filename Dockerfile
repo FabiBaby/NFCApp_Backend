@@ -1,15 +1,15 @@
-# Use an official OpenJDK runtime as a parent image
-FROM openjdk:11-jdk-slim
-
-# Set the working directory in the container
+# Use the official Maven image to create a build artifact.
+# This is a multi-stage build. It first uses Maven to build the project.
+# Updated to use JDK 17 for compatibility with your dependencies.
+FROM maven:3.8-openjdk-17 as builder
 WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
-# Copy the jar file into the container at /app
-ARG JAR_FILE=target/*.jar
-COPY ${JAR_FILE} app.jar
-
-# Make port 8080 available to the world outside this container
+# Now, deploy the artifact in the official Java runtime container
+# Updated to use OpenJDK 17 for running the application.
+FROM openjdk:17-oracle
+COPY --from=builder /app/target/*.jar app.jar
 EXPOSE 8080
-
-# Run the jar file
 ENTRYPOINT ["java", "-jar", "app.jar"]
