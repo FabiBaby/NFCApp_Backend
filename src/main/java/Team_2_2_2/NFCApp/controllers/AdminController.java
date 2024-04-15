@@ -50,7 +50,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/assignNfc")
+    @PostMapping("/assignNfc")
     public ResponseEntity<ObjectEntity> assignNfc(@RequestBody ObjectEntity objectEntity, @RequestParam NfcEntity nfcEntity){
         ObjectEntity assignedObject = adminService.assignNfc(objectEntity, nfcEntity);
         if(assignedObject != null){
