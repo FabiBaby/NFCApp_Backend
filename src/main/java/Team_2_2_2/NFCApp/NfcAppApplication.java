@@ -9,5 +9,4 @@ public class NfcAppApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(NfcAppApplication.class, args);
 	}
-
 }

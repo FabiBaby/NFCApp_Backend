@@ -15,12 +15,12 @@ public class NfcService {
         this.nfcRepository = nfcRepository;
     }
 
-    public void addNfc(String nfcId) {
+    public NfcEntity addNfc(String nfcId) {
         if(nfcRepository.existsById(nfcId)) {
-            return;
+            return nfcRepository.findByNfcId(nfcId);
         }
 
         NfcEntity nfcEntity = new NfcEntity(nfcId);
-        nfcRepository.saveAndFlush(nfcEntity);
+        return nfcRepository.saveAndFlush(nfcEntity);
     }
 }

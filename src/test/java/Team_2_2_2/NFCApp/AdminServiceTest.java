@@ -24,7 +24,7 @@ public class AdminServiceTest {
     @Test
     public void testRegisterAdmin() {
         // Given
-        String username = "";
+        String username = "admin";
         String password = "pass";
         when(adminRepository.saveAndFlush(any(AdminEntity.class))).thenReturn(new AdminEntity(username, "encrypted_password"));
 

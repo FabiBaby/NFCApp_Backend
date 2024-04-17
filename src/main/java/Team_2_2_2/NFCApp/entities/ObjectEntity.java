@@ -1,6 +1,7 @@
 package Team_2_2_2.NFCApp.entities;
 
 import jakarta.persistence.*;
+import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "object")
@@ -22,7 +23,7 @@ public class ObjectEntity {
 
     //Foreign keys go here
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false, name = "nfcId")
+    @JoinColumn(nullable = true, name = "nfcId")
     private NfcEntity nfc;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -81,6 +82,8 @@ public class ObjectEntity {
     public NfcEntity getNfc() {
         return nfc;
     }
+
+    public String getNfcId() {return nfc.getNfcId();}
 
     public AdminEntity getAdmin() {
         return admin;
