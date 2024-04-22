@@ -40,7 +40,6 @@ public class AdminController {
         }
 
         ObjectEntity objectEntity = adminService.addObject(ObjectDto.getObjectName(), ObjectDto.getObjectDesc(), ObjectDto.getObjectLocation(), ObjectDto.getNfcId());
-        System.out.println(objectEntity.getNfcId());
 
         if (objectEntity != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(objectEntity);
