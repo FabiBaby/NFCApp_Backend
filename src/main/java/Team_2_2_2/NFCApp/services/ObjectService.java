@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class ObjectService {
@@ -26,18 +25,6 @@ public class ObjectService {
         ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation, nfcId, adminId);
         return objectRepository.saveAndFlush(newObject);
     }
-
-    private ObjectEntity convertDtoToEntity(AdminController.ObjectDto dto) {
-        // Assuming you have a constructor or a method to create an entity from a DTO
-        ObjectEntity entity = new ObjectEntity();
-        entity.setObjectName(dto.getObjectName());
-        entity.setObjectDesc(dto.getObjectDesc());
-        entity.setObjectLocation(dto.getObjectLocation());
-        // Set other fields as necessary
-        return entity;
-    }
-
-
 
     public void removeObject(Long objectId){
         ObjectEntity objectEntity = objectRepository.findByObjectId(objectId);

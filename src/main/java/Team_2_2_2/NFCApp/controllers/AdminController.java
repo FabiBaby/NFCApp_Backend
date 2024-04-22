@@ -1,5 +1,6 @@
 package Team_2_2_2.NFCApp.controllers;
 
+import Team_2_2_2.NFCApp.dto.ObjectAdminDto;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import Team_2_2_2.NFCApp.services.AdminService;
@@ -33,14 +34,14 @@ public class AdminController {
     }
 
     @PostMapping("/addObject")
-    public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto objectDto, @RequestBody AdminDto adminDto){
+    public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectAdminDto objectAdminDto){
         // If an object already exists in the database then it returns a conflict message
-        if(objectRepository.findByNfcId(objectDto.getNfcId()) != null){
+        if(objectRepository.findByNfcId(objectAdminDto.objectDto.getNfcId()) != null){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
 
-        ObjectEntity objectEntity = adminService.addObject(objectDto.getObjectName(), objectDto.getObjectDesc(),
-                objectDto.getObjectLocation(), objectDto.getNfcId(), adminDto.getAdminId());
+        ObjectEntity objectEntity = adminService.addObject(objectAdminDto.objectDto.getObjectName(), objectAdminDto.objectDto.getObjectDesc(),
+                objectAdminDto.objectDto.getObjectLocation(), objectAdminDto.objectDto.getNfcId(), objectAdminDto.adminDto.getAdminId());
 
         if (objectEntity != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(objectEntity);
@@ -67,61 +68,11 @@ public class AdminController {
 //        return adminService.getAdminInfo();
 //    }
 
-    public static class ObjectDto {
-        private String objectName;
-        private String objectDesc;
-        private String objectLocation;
-        private String NfcId;
-        private Long objectId;
 
-        public String getObjectName() {
-            return objectName;
-        }
-
-        public String getObjectDesc() {
-            return objectDesc;
-        }
-
-        public String getObjectLocation() {
-            return objectLocation;
-        }
-
-        public Long getObjectId() {
-            return objectId;
-        }
-
-        public String getNfcId() {
-            return NfcId;
-        }
-    }
 
     public static class LoginDto {
         private String username;
         private String password;
-
-        public String getUsername() {
-            return username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-    }
-
-    public static class AdminDto {
-        private Long adminId;
-        private String username;
-        private String password;
-
-        public AdminDto(String username, String password) {
-            this.username = username;
-            this.password = password;
-        }
-
-        // getters and setters
-        public Long getAdminId() {
-            return adminId;
-        }
 
         public String getUsername() {
             return username;
@@ -142,6 +93,7 @@ public class AdminController {
         }
 
         // Getters and setters
+        // Is being used
         public boolean isSuccess() {
             return success;
         }
@@ -150,6 +102,7 @@ public class AdminController {
             this.success = success;
         }
 
+        // Is being used
         public String getMessage() {
             return message;
         }
