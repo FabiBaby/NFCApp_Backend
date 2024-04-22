@@ -8,10 +8,6 @@ public class NfcEntity {
     @Id
     private String nfcId;
 
-//    @OneToOne
-//    @JoinColumn(name = "objectId", referencedColumnName = "objectId")
-//    private ObjectEntity objectEntity;
-
     public NfcEntity(){
 
     }
