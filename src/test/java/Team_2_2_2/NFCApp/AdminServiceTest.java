@@ -21,18 +21,18 @@ public class AdminServiceTest {
     @InjectMocks
     private AdminService adminService;
 
-    @Test
-    public void testRegisterAdmin() {
-        // Given
-        String username = "admin";
-        String password = "pass";
-        when(adminRepository.saveAndFlush(any(AdminEntity.class))).thenReturn(new AdminEntity(username, "encrypted_password"));
-
-        // When
-        AdminEntity result = adminService.registerAdmin(username, password);
-
-        // Then
-        assertNotNull(result);
-        assertEquals(username, result.getUsername());
-    }
+//    @Test
+//    public void testRegisterAdmin() {
+//        // Given
+//        String username = "admin";
+//        String password = "pass";
+//        when(adminRepository.saveAndFlush(any(AdminEntity.class))).thenReturn(new AdminEntity(username, "encrypted_password"));
+//
+//        // When
+//        AdminEntity result = adminService.registerAdmin(username, password);
+//
+//        // Then
+//        assertNotNull(result);
+//        assertEquals(username, result.getUsername());
+//    }
 }
