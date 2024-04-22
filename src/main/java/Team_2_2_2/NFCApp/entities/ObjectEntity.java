@@ -21,18 +21,21 @@ public class ObjectEntity {
     @Column(nullable = false)
     private String objectLocation;
 
-    //Foreign keys go here
+//    Foreign keys go here
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(nullable = true, name = "nfcId")
+//    @JoinColumn(nullable = true, name = "nfcId")
     private NfcEntity nfc;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private AdminEntity admin;
 
-    public ObjectEntity(String objectName, String objectDesc, String objectLocation) {
+    private String nfcId;
+
+    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
         setObjectName(objectName);
         setObjectDesc(objectDesc);
         setObjectLocation(objectLocation);
+        setNfcId(nfcId);
     }
 
     public ObjectEntity() {
@@ -55,8 +58,15 @@ public class ObjectEntity {
         this.objectLocation = objectLocation;
     }
 
-    public void setNfc(NfcEntity nfc) {
-        this.nfc = nfc;
+//    public void setNfc(NfcEntity nfc) {
+//        this.nfc = nfc;
+//    }
+    public void setNfcId(String nfcId) {
+        this.nfcId = nfcId;
+    }
+
+    public String getNfcId() {
+        return nfcId;
     }
 
     public void setAdmin(AdminEntity admin) {
@@ -79,11 +89,17 @@ public class ObjectEntity {
         return objectLocation;
     }
 
-    public NfcEntity getNfc() {
-        return nfc;
-    }
-
-    public String getNfcId() {return nfc.getNfcId();}
+//    public NfcEntity getNfc() {
+//        return nfc;
+//    }
+//
+//    public String getNfcId() {
+//        if (this.nfc != null) {
+//            return this.nfc.getNfcId();
+//        } else {
+//            return null;
+//        }
+//    }
 
     public AdminEntity getAdmin() {
         return admin;

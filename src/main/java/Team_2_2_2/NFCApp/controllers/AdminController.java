@@ -3,6 +3,7 @@ package Team_2_2_2.NFCApp.controllers;
 import Team_2_2_2.NFCApp.entities.AdminEntity;
 import Team_2_2_2.NFCApp.entities.NfcEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
+import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import Team_2_2_2.NFCApp.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,11 +15,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+    private final ObjectRepository objectRepository;
     private AdminService adminService;
 
     @Autowired
-    public AdminController(AdminService adminService) {
+    public AdminController(AdminService adminService, ObjectRepository objectRepository) {
         this.adminService = adminService;
+        this.objectRepository = objectRepository;
     }
 
     //Controller method to register the admin to the database
@@ -42,26 +45,35 @@ public class AdminController {
 
     @PostMapping("/addObject")
     public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto ObjectDto){
-        ObjectEntity objectEntity = adminService.addObject(ObjectDto.getObjectName(), ObjectDto.getObjectDesc(), ObjectDto.getObjectLocation());
-        if(objectEntity != null){
+
+        if(objectRepository.findByNfcId(ObjectDto.getNfcId()) != null){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
+        }
+
+        ObjectEntity objectEntity = adminService.addObject(ObjectDto.getObjectName(), ObjectDto.getObjectDesc(), ObjectDto.getObjectLocation(), ObjectDto.getNfcId());
+        System.out.println(objectEntity.getNfcId());
+
+        if (objectEntity != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(objectEntity);
         }
-        else{
+        else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
+
+
     }
 
-    @PostMapping("/assignNfc")
-    public ResponseEntity<ObjectEntity> assignNfc(@RequestBody AssignNfcRequest assignNfcRequest){
-        ObjectEntity assignedObject = adminService.assignNfc(assignNfcRequest.getObjectEntity(), assignNfcRequest.getNfcUid());
-        return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
-//        if(assignedObject != null){
-//            return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
-//        }
-//        else{
-//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-//        }
-    }
+//    @PostMapping("/assignNfc")
+//    public ResponseEntity<ObjectEntity> assignNfc(@RequestBody AssignNfcRequest assignNfcRequest){
+//        ObjectEntity assignedObject = adminService.assignNfc(assignNfcRequest.getObjectEntity(), assignNfcRequest.getNfcUid());
+//        return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
+////        if(assignedObject != null){
+////            return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
+////        }
+////        else{
+////            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+////        }
+//    }
 
     @DeleteMapping("/removeObject")
     public ResponseEntity<String> removeObject(@RequestBody ObjectDto objectDto){
@@ -128,6 +140,9 @@ public class AdminController {
 
         public void setNfcId(String nfcId) {
             NfcId = nfcId;
+        }
+        public String getNfcId() {
+            return NfcId;
         }
     }
 

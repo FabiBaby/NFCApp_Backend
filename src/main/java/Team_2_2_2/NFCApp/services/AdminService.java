@@ -46,8 +46,9 @@ public class AdminService {
         }
     }
 
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation){
-        return objectService.addObject(objectName, objectDesc, objectLocation);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId){
+        System.out.println(nfcId);
+        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId);
     }
 
     public ObjectEntity assignNfc(AdminController.ObjectDto objectDto, String nfcId){

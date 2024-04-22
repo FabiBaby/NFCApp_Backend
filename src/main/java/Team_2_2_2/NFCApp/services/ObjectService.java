@@ -1,7 +1,6 @@
 package Team_2_2_2.NFCApp.services;
 
 import Team_2_2_2.NFCApp.controllers.AdminController;
-import Team_2_2_2.NFCApp.entities.NfcEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ObjectService {
@@ -22,8 +22,8 @@ public class ObjectService {
     }
 
     @Transactional
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation) {
-        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId) {
+        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation, nfcId);
         return objectRepository.saveAndFlush(newObject);
     }
 
@@ -32,10 +32,11 @@ public class ObjectService {
         // Convert DTO to Entity
         ObjectEntity objectEntity = objectRepository.findByObjectName(objectDto.getObjectName());
 
-        NfcEntity nfcEntity = nfcService.addNfc(nfcId);
+//        NfcEntity nfcEntity = nfcService.addNfc(nfcId);
 
-        // Set the NFC ID on the entity
-        objectEntity.setNfc(nfcEntity);
+//        // Set the NFC ID on the entity
+//        objectEntity.setNfc(nfcEntity);
+        objectEntity.setNfcId(nfcId);
 
         // Save and flush the entity
         return objectRepository.saveAndFlush(objectEntity);
@@ -59,7 +60,8 @@ public class ObjectService {
     }
 
     public ObjectEntity getObjectInfoByNfcId(String NfcId) {
-        return objectRepository.findByNfc_NfcId(NfcId);
+
+        return objectRepository.findByNfcId(NfcId);
     }
 
     public List<ObjectEntity> getAllObjects() {
