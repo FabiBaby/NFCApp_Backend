@@ -1,8 +1,23 @@
 package Team_2_2_2.NFCApp.dto;
 
 public class ObjectAdminDto {
-    public ObjectDto objectDto;
-    public AdminDto adminDto;
+    private ObjectDto objectDto;
+    private AdminDto adminDto;
+
+    // Constructor to ensure both DTOs are initialized
+    public ObjectAdminDto(ObjectDto objectDto, AdminDto adminDto) {
+        this.objectDto = objectDto;
+        this.adminDto = adminDto;
+    }
+
+    // Getters for encapsulation
+    public ObjectDto getObjectDto() {
+        return objectDto;
+    }
+
+    public AdminDto getAdminDto() {
+        return adminDto;
+    }
 
     public static class ObjectDto {
         private String objectName;
