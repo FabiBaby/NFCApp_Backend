@@ -1,7 +1,5 @@
 package Team_2_2_2.NFCApp.controllers;
 
-import Team_2_2_2.NFCApp.entities.AdminEntity;
-import Team_2_2_2.NFCApp.entities.NfcEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import Team_2_2_2.NFCApp.services.AdminService;
@@ -24,7 +22,6 @@ public class AdminController {
         this.objectRepository = objectRepository;
     }
 
-    //Controller method to verify if password matches username entered
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginDto loginDto){
         if(adminService.loginAdmin(loginDto.getUsername(), loginDto.getPassword())){
@@ -51,8 +48,6 @@ public class AdminController {
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-
-
     }
 
     @DeleteMapping("/removeObject")

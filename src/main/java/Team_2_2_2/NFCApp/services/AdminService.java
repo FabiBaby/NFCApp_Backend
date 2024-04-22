@@ -1,11 +1,9 @@
 package Team_2_2_2.NFCApp.services;
 
-import Team_2_2_2.NFCApp.controllers.AdminController;
 import Team_2_2_2.NFCApp.entities.AdminEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.AdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,17 +11,14 @@ import java.util.List;
 @Service
 public class AdminService {
     private final AdminRepository adminRepository;
-    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ObjectService objectService;
 
     @Autowired
     public AdminService(AdminRepository adminRepository, ObjectService objectService) {
         this.adminRepository = adminRepository;
-        this.bCryptPasswordEncoder = new BCryptPasswordEncoder();
         this.objectService = objectService;
     }
 
-    //Logins if the username exists and the entered password matches the one in the database
     public boolean loginAdmin(String username, String password) {
         try {
             AdminEntity adminEntity = adminRepository.findByUsername(username);
@@ -31,10 +26,9 @@ public class AdminService {
                 return true;
             }
             return false;
-        } catch (Exception e) {
-            // Log the exception
-            System.out.println(e);
-            return false;  // Consider how you want to handle errors - false may not always be appropriate
+        }
+        catch (Exception e) {
+            return false;
         }
     }
 

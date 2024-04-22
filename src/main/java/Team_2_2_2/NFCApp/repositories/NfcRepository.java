@@ -5,5 +5,4 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface NfcRepository extends JpaRepository<NfcEntity, String> {
     boolean existsById(String nfcId);
-    NfcEntity findByNfcId(String nfcId);
 }
