@@ -1,7 +1,7 @@
 package Team_2_2_2.NFCApp.controllers;
 
-import Team_2_2_2.NFCApp.entities.AdminEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
+import Team_2_2_2.NFCApp.repositories.AdminRepository;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import Team_2_2_2.NFCApp.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,19 +14,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
+    private final AdminRepository adminRepository;
     private final ObjectRepository objectRepository;
     private AdminService adminService;
 
     @Autowired
-    public AdminController(AdminService adminService, ObjectRepository objectRepository) {
+    public AdminController(AdminService adminService, ObjectRepository objectRepository, AdminRepository adminRepository) {
+        this.adminRepository = adminRepository;
         this.adminService = adminService;
         this.objectRepository = objectRepository;
     }
 
-    //Controller method to verify if password matches username entered
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginDto loginDto){
-        if(adminService.loginAdmin(loginDto.getUsername(), loginDto.getPassword())){
+    public ResponseEntity<LoginResponse> loginAdmin(@RequestBody AdminDto adminDto){
+        if(adminService.loginAdmin(adminDto.getUsername(), adminDto.getPassword())){
             return ResponseEntity.ok(new LoginResponse(true, "Login Successful"));
         }
         else{
@@ -35,14 +36,14 @@ public class AdminController {
     }
 
     @PostMapping("/addObject")
-    public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto ObjectDto){
-
-        if(objectRepository.findByNfcId(ObjectDto.getNfcId()) != null){
+    public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto objectDto, @RequestBody AdminDto adminDto){
+        // If an object already exists in the database then it returns a conflict message
+        if(objectRepository.findByNfcId(objectDto.getNfcId()) != null){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
 
-        ObjectEntity objectEntity = adminService.addObject(ObjectDto.getObjectName(), ObjectDto.getObjectDesc(), ObjectDto.getObjectLocation(), ObjectDto.getNfcId());
-        System.out.println(objectEntity.getNfcId());
+        ObjectEntity objectEntity = adminService.addObject(objectDto.getObjectName(), objectDto.getObjectDesc(),
+                objectDto.getObjectLocation(), objectDto.getNfcId(), adminDto.getAdminId());
 
         if (objectEntity != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(objectEntity);
@@ -50,8 +51,6 @@ public class AdminController {
         else {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
-
-
     }
 
     @DeleteMapping("/removeObject")
@@ -64,34 +63,6 @@ public class AdminController {
     public ResponseEntity<List<ObjectEntity>> getAllObjects(){
         List<ObjectEntity> allObjectEntities = adminService.getAllObjects();
         return ResponseEntity.status(HttpStatus.OK).body(allObjectEntities);
-    }
-
-    public static class AssignNfcRequest {
-        private ObjectDto objectDto;
-        private String nfcUID;
-
-        // Constructors
-        public AssignNfcRequest(ObjectDto objectDto, String nfcUid) {
-            this.objectDto = objectDto;
-            this.nfcUID = nfcUID;
-        }
-
-        // Getters and setters
-        public ObjectDto getObjectEntity() {
-            return objectDto;
-        }
-
-        public void setObjectEntity(ObjectDto objectDto) {
-            this.objectDto = objectDto;
-        }
-
-        public String getNfcUid() {
-            return nfcUID;
-        }
-
-        public void setNfcUid(String nfcUID) {
-            this.nfcUID = nfcUID;
-        }
     }
 
     public static class ObjectDto {
@@ -117,33 +88,27 @@ public class AdminController {
             return objectId;
         }
 
-        public void setNfcId(String nfcId) {
-            NfcId = nfcId;
-        }
         public String getNfcId() {
             return NfcId;
         }
     }
 
-    public static class LoginDto {
+    public static class AdminDto {
+        private Long adminId;
         private String username;
         private String password;
 
         // getters and setters
+        public Long getAdminId() {
+            return adminId;
+        }
+
         public String getUsername() {
             return username;
         }
 
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
         public String getPassword() {
             return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
         }
     }
 
@@ -155,24 +120,5 @@ public class AdminController {
             this.success = success;
             this.message = message;
         }
-
-        // Getters and setters
-        public boolean isSuccess() {
-            return success;
-        }
-
-        public void setSuccess(boolean success) {
-            this.success = success;
-        }
-
-        public String getMessage() {
-            return message;
-        }
-
-        public void setMessage(String message) {
-            this.message = message;
-        }
     }
-
-
 }

@@ -1,6 +1,5 @@
 package Team_2_2_2.NFCApp.services;
 
-import Team_2_2_2.NFCApp.controllers.AdminController;
 import Team_2_2_2.NFCApp.entities.AdminEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.AdminRepository;
@@ -20,7 +19,7 @@ public class AdminService {
         this.objectService = objectService;
     }
 
-    //Logins if the username exists and the entered password matches the one in the database
+    // Logins if the username exists and the entered password matches the one in the database
     public boolean loginAdmin(String username, String password) {
         try {
             AdminEntity adminEntity = adminRepository.findByUsername(username);
@@ -28,20 +27,14 @@ public class AdminService {
                 return true;
             }
             return false;
-        } catch (Exception e) {
-            // Log the exception
-            System.out.println(e);
-            return false;  // Consider how you want to handle errors - false may not always be appropriate
+        }
+        catch (Exception e) {
+            return false;
         }
     }
 
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId){
-        System.out.println(nfcId);
-        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId);
-    }
-
-    public ObjectEntity assignNfc(AdminController.ObjectDto objectDto, String nfcId){
-        return objectService.assignNfc(objectDto, nfcId);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId, Long adminId){
+        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId, adminId);
     }
 
     public void removeObject(Long objectId){

@@ -22,24 +22,9 @@ public class ObjectService {
     }
 
     @Transactional
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId) {
-        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation, nfcId);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId, Long adminId) {
+        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation, nfcId, adminId);
         return objectRepository.saveAndFlush(newObject);
-    }
-
-    @Transactional
-    public ObjectEntity assignNfc(AdminController.ObjectDto objectDto, String nfcId) {
-        // Convert DTO to Entity
-        ObjectEntity objectEntity = objectRepository.findByObjectName(objectDto.getObjectName());
-
-//        NfcEntity nfcEntity = nfcService.addNfc(nfcId);
-
-//        // Set the NFC ID on the entity
-//        objectEntity.setNfc(nfcEntity);
-        objectEntity.setNfcId(nfcId);
-
-        // Save and flush the entity
-        return objectRepository.saveAndFlush(objectEntity);
     }
 
     private ObjectEntity convertDtoToEntity(AdminController.ObjectDto dto) {
