@@ -18,7 +18,6 @@ public class AdminEntity {
     private String password;
 
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    @JoinColumn(name = "objectID", referencedColumnName = "objectID")
     private List<ObjectEntity> objects;
 
     public AdminEntity(String username, String password) {

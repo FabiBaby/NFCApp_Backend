@@ -23,14 +23,6 @@ public class AdminService {
         this.objectService = objectService;
     }
 
-    //Registers admin by encrypting the password and then saves the admin to the database
-    public AdminEntity registerAdmin(String username, String password) {
-        String encodedPassword = bCryptPasswordEncoder.encode(password);
-        AdminEntity newAdmin = new AdminEntity(username, encodedPassword);
-        //Saves the new Admin to the database
-        return adminRepository.saveAndFlush(newAdmin);
-    }
-
     //Logins if the username exists and the entered password matches the one in the database
     public boolean loginAdmin(String username, String password) {
         try {
@@ -49,10 +41,6 @@ public class AdminService {
     public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId){
         System.out.println(nfcId);
         return objectService.addObject(objectName, objectDesc, objectLocation, nfcId);
-    }
-
-    public ObjectEntity assignNfc(AdminController.ObjectDto objectDto, String nfcId){
-        return objectService.assignNfc(objectDto, nfcId);
     }
 
     public void removeObject(Long objectId){

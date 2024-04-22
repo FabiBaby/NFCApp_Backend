@@ -24,14 +24,6 @@ public class AdminController {
         this.objectRepository = objectRepository;
     }
 
-    //Controller method to register the admin to the database
-    @PostMapping("/register")
-    public ResponseEntity<AdminEntity> registerAdmin(@RequestParam String username, @RequestParam String password){
-        AdminEntity adminEntity = adminService.registerAdmin(username, password);
-
-        return ResponseEntity.ok(adminEntity);
-    }
-
     //Controller method to verify if password matches username entered
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginDto loginDto){
@@ -62,18 +54,6 @@ public class AdminController {
 
 
     }
-
-//    @PostMapping("/assignNfc")
-//    public ResponseEntity<ObjectEntity> assignNfc(@RequestBody AssignNfcRequest assignNfcRequest){
-//        ObjectEntity assignedObject = adminService.assignNfc(assignNfcRequest.getObjectEntity(), assignNfcRequest.getNfcUid());
-//        return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
-////        if(assignedObject != null){
-////            return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
-////        }
-////        else{
-////            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-////        }
-//    }
 
     @DeleteMapping("/removeObject")
     public ResponseEntity<String> removeObject(@RequestParam("objectId") Long objectId){
@@ -194,6 +174,4 @@ public class AdminController {
             this.message = message;
         }
     }
-
-
 }
