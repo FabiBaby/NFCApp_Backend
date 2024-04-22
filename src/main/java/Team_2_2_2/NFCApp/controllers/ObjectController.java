@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.*;
-
-@RestController //Means that this class is a controller
+@RestController
 @RequestMapping("/objects")
 public class ObjectController {
     private final ObjectService objectService;
@@ -18,7 +16,7 @@ public class ObjectController {
         this.objectService = objectService;
     }
 
-    @GetMapping("/getObjectInfoByNfcId") //Endpoint to get an object by ID
+    @GetMapping("/getObjectInfoByNfcId")
     public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String NfcId) {
         ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(NfcId);
         if(objectEntity == null) {
