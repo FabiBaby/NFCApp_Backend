@@ -1,7 +1,6 @@
 package Team_2_2_2.NFCApp.controllers;
 
 import Team_2_2_2.NFCApp.entities.AdminEntity;
-import Team_2_2_2.NFCApp.entities.NfcEntity;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import Team_2_2_2.NFCApp.services.AdminService;
@@ -22,14 +21,6 @@ public class AdminController {
     public AdminController(AdminService adminService, ObjectRepository objectRepository) {
         this.adminService = adminService;
         this.objectRepository = objectRepository;
-    }
-
-    //Controller method to register the admin to the database
-    @PostMapping("/register")
-    public ResponseEntity<AdminEntity> registerAdmin(@RequestParam String username, @RequestParam String password){
-        AdminEntity adminEntity = adminService.registerAdmin(username, password);
-
-        return ResponseEntity.ok(adminEntity);
     }
 
     //Controller method to verify if password matches username entered
@@ -62,18 +53,6 @@ public class AdminController {
 
 
     }
-
-//    @PostMapping("/assignNfc")
-//    public ResponseEntity<ObjectEntity> assignNfc(@RequestBody AssignNfcRequest assignNfcRequest){
-//        ObjectEntity assignedObject = adminService.assignNfc(assignNfcRequest.getObjectEntity(), assignNfcRequest.getNfcUid());
-//        return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
-////        if(assignedObject != null){
-////            return ResponseEntity.status(HttpStatus.CREATED).body(assignedObject);
-////        }
-////        else{
-////            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-////        }
-//    }
 
     @DeleteMapping("/removeObject")
     public ResponseEntity<String> removeObject(@RequestBody ObjectDto objectDto){

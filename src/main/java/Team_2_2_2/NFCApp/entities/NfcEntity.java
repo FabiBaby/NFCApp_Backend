@@ -27,12 +27,4 @@ public class NfcEntity {
     public String getNfcId() {
         return nfcId;
     }
-
-//    public void setObjectEntity(ObjectEntity objectEntity) {
-//        this.objectEntity = objectEntity;
-//    }
-//
-//    public ObjectEntity getObjectEntity() {
-//        return objectEntity;
-//    }
 }
