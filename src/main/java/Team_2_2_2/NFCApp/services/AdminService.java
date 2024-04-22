@@ -44,5 +44,9 @@ public class AdminService {
     public List<ObjectEntity> getAllObjects() {
         return objectService.getAllObjects();
     }
+
+//    public AdminEntity getAdminInfo(){
+//        return adminRepository.findByUsername()
+//    }
 }
 

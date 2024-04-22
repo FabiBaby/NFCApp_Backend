@@ -1,7 +1,6 @@
 package Team_2_2_2.NFCApp.controllers;
 
 import Team_2_2_2.NFCApp.entities.ObjectEntity;
-import Team_2_2_2.NFCApp.repositories.AdminRepository;
 import Team_2_2_2.NFCApp.repositories.ObjectRepository;
 import Team_2_2_2.NFCApp.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,20 +13,18 @@ import java.util.List;
 @RestController
 @RequestMapping("/admin")
 public class AdminController {
-    private final AdminRepository adminRepository;
     private final ObjectRepository objectRepository;
     private AdminService adminService;
 
     @Autowired
-    public AdminController(AdminService adminService, ObjectRepository objectRepository, AdminRepository adminRepository) {
-        this.adminRepository = adminRepository;
+    public AdminController(AdminService adminService, ObjectRepository objectRepository) {
         this.adminService = adminService;
         this.objectRepository = objectRepository;
     }
 
     @PostMapping("/login")
-    public ResponseEntity<LoginResponse> loginAdmin(@RequestBody AdminDto adminDto){
-        if(adminService.loginAdmin(adminDto.getUsername(), adminDto.getPassword())){
+    public ResponseEntity<LoginResponse> loginAdmin(@RequestBody LoginDto loginDto){
+        if(adminService.loginAdmin(loginDto.getUsername(), loginDto.getPassword())){
             return ResponseEntity.ok(new LoginResponse(true, "Login Successful"));
         }
         else{
@@ -65,6 +62,11 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.OK).body(allObjectEntities);
     }
 
+//    @GetMapping("/getAdminInfo")
+//    public ResponseEntity<AdminEntity> getAdminInfo(){
+//        return adminService.getAdminInfo();
+//    }
+
     public static class ObjectDto {
         private String objectName;
         private String objectDesc;
@@ -93,10 +95,28 @@ public class AdminController {
         }
     }
 
+    public static class LoginDto {
+        private String username;
+        private String password;
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+    }
+
     public static class AdminDto {
         private Long adminId;
         private String username;
         private String password;
+
+        public AdminDto(String username, String password) {
+            this.username = username;
+            this.password = password;
+        }
 
         // getters and setters
         public Long getAdminId() {
