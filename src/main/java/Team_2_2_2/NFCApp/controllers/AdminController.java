@@ -76,8 +76,8 @@ public class AdminController {
 //    }
 
     @DeleteMapping("/removeObject")
-    public ResponseEntity<String> removeObject(@RequestBody ObjectDto objectDto){
-        adminService.removeObject(objectDto.getObjectId());
+    public ResponseEntity<String> removeObject(@RequestParam("objectId") Long objectId){
+        adminService.removeObject(objectId);
         return ResponseEntity.status(HttpStatus.CREATED).body("Remove Successful");
     }
 
