@@ -2,6 +2,8 @@ package Team_2_2_2.NFCApp.entities;
 
 import jakarta.persistence.*;
 
+import java.util.List;
+
 @Entity
 @Table(name = "admin")
 public class AdminEntity {
@@ -15,9 +17,13 @@ public class AdminEntity {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @JoinColumn(name = "objectID", referencedColumnName = "objectID")
+    private List<ObjectEntity> objects;
+
     public AdminEntity(String username, String password) {
-        setUsername(username);
-        setPassword(password);
+        this.username = username;
+        this.password = password;
     }
 
     public AdminEntity() {
@@ -37,6 +43,9 @@ public class AdminEntity {
         this.password = password;
     }
 
+    public void setObjects(List<ObjectEntity> objects) {
+        this.objects = objects;
+    }
 
     //getters
     public Long getAdminId() {
@@ -49,5 +58,9 @@ public class AdminEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public List<ObjectEntity> getObjects() {
+        return objects;
     }
 }
