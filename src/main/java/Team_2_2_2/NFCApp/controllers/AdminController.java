@@ -33,14 +33,14 @@ public class AdminController {
     }
 
     @PostMapping("/addObject")
-    public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto objectDto, @RequestBody AdminDto adminDto){
+    public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto objectDto){
         // If an object already exists in the database then it returns a conflict message
         if(objectRepository.findByNfcId(objectDto.getNfcId()) != null){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
 
         ObjectEntity objectEntity = adminService.addObject(objectDto.getObjectName(), objectDto.getObjectDesc(),
-                objectDto.getObjectLocation(), objectDto.getNfcId(), adminDto.getAdminId());
+                objectDto.getObjectLocation(), objectDto.getNfcId());
 
         if (objectEntity != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(objectEntity);

@@ -33,8 +33,8 @@ public class AdminService {
         }
     }
 
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId, Long adminId){
-        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId, adminId);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId){
+        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId);
     }
 
     public void removeObject(Long objectId){

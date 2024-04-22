@@ -21,8 +21,8 @@ public class ObjectService {
     }
 
     @Transactional
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId, Long adminId) {
-        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation, nfcId, adminId);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId) {
+        ObjectEntity newObject = new ObjectEntity(objectName, objectDesc, objectLocation, nfcId);
         return objectRepository.saveAndFlush(newObject);
     }
 
