@@ -1,7 +1,6 @@
 package Team_2_2_2.NFCApp.entities;
 
 import jakarta.persistence.*;
-import org.springframework.lang.Nullable;
 
 @Entity
 @Table(name = "object")
@@ -21,15 +20,10 @@ public class ObjectEntity {
     @Column(nullable = false)
     private String objectLocation;
 
-//    Foreign keys go here
-    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(nullable = true, name = "nfcId")
-    private NfcEntity nfc;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    private AdminEntity admin;
-
+    // Foreign keys
     private String nfcId;
+
+    private Long adminId;
 
     public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
         setObjectName(objectName);
@@ -58,19 +52,12 @@ public class ObjectEntity {
         this.objectLocation = objectLocation;
     }
 
-//    public void setNfc(NfcEntity nfc) {
-//        this.nfc = nfc;
-//    }
     public void setNfcId(String nfcId) {
         this.nfcId = nfcId;
     }
 
-    public String getNfcId() {
-        return nfcId;
-    }
-
-    public void setAdmin(AdminEntity admin) {
-        this.admin = admin;
+    public void setAdminId(Long adminId) {
+        this.adminId = adminId;
     }
 
     public Long getObjectId() {
@@ -89,19 +76,11 @@ public class ObjectEntity {
         return objectLocation;
     }
 
-//    public NfcEntity getNfc() {
-//        return nfc;
-//    }
-//
-//    public String getNfcId() {
-//        if (this.nfc != null) {
-//            return this.nfc.getNfcId();
-//        } else {
-//            return null;
-//        }
-//    }
+    public String getNfcId() {
+        return nfcId;
+    }
 
-    public AdminEntity getAdmin() {
-        return admin;
+    public Long getAdminId() {
+        return adminId;
     }
 }

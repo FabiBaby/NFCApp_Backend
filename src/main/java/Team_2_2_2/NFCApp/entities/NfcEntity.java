@@ -8,10 +8,6 @@ public class NfcEntity {
     @Id
     private String nfcId;
 
-//    @OneToOne
-//    @JoinColumn(name = "objectId", referencedColumnName = "objectId")
-//    private ObjectEntity objectEntity;
-
     public NfcEntity(){
 
     }
@@ -27,12 +23,4 @@ public class NfcEntity {
     public String getNfcId() {
         return nfcId;
     }
-
-//    public void setObjectEntity(ObjectEntity objectEntity) {
-//        this.objectEntity = objectEntity;
-//    }
-//
-//    public ObjectEntity getObjectEntity() {
-//        return objectEntity;
-//    }
 }

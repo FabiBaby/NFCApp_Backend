@@ -17,9 +17,6 @@ public class AdminEntity {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ObjectEntity> objects;
-
     public AdminEntity(String username, String password) {
         this.username = username;
         this.password = password;
@@ -42,10 +39,6 @@ public class AdminEntity {
         this.password = password;
     }
 
-    public void setObjects(List<ObjectEntity> objects) {
-        this.objects = objects;
-    }
-
     //getters
     public Long getAdminId() {
         return adminId;
@@ -59,7 +52,4 @@ public class AdminEntity {
         return password;
     }
 
-    public List<ObjectEntity> getObjects() {
-        return objects;
-    }
 }
