@@ -25,11 +25,12 @@ public class ObjectEntity {
 
     private Long adminId;
 
-    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId) {
+    public ObjectEntity(String objectName, String objectDesc, String objectLocation, String nfcId, Long adminId) {
         setObjectName(objectName);
         setObjectDesc(objectDesc);
         setObjectLocation(objectLocation);
         setNfcId(nfcId);
+        setAdminId(adminId);
     }
 
     public ObjectEntity() {

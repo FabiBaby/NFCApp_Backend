@@ -32,9 +32,8 @@ public class AdminService {
         }
     }
 
-    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId){
-        System.out.println(nfcId);
-        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId);
+    public ObjectEntity addObject(String objectName, String objectDesc, String objectLocation, String nfcId, Long adminId){
+        return objectService.addObject(objectName, objectDesc, objectLocation, nfcId, adminId);
     }
 
     public void removeObject(Long objectId){
@@ -43,6 +42,10 @@ public class AdminService {
 
     public List<ObjectEntity> getAllObjects() {
         return objectService.getAllObjects();
+    }
+
+    public Long getAdminId(String username){
+        return adminRepository.findByUsername(username).getAdminId();
     }
 }
 

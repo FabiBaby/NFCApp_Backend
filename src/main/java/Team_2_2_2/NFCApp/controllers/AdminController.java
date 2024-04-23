@@ -34,12 +34,13 @@ public class AdminController {
 
     @PostMapping("/addObject")
     public ResponseEntity<ObjectEntity> addObject(@RequestBody ObjectDto ObjectDto){
-
         if(objectRepository.findByNfcId(ObjectDto.getNfcId()) != null){
             return ResponseEntity.status(HttpStatus.CONFLICT).body(null);
         }
 
-        ObjectEntity objectEntity = adminService.addObject(ObjectDto.getObjectName(), ObjectDto.getObjectDesc(), ObjectDto.getObjectLocation(), ObjectDto.getNfcId());
+        ObjectEntity objectEntity = adminService.addObject(ObjectDto.getObjectName(), ObjectDto.getObjectDesc(),
+                ObjectDto.getObjectLocation(), ObjectDto.getNfcId(), ObjectDto.getAdminId());
+        System.out.println(ObjectDto.getAdminId());
 
         if (objectEntity != null){
             return ResponseEntity.status(HttpStatus.CREATED).body(objectEntity);
@@ -61,12 +62,18 @@ public class AdminController {
         return ResponseEntity.status(HttpStatus.OK).body(allObjectEntities);
     }
 
+    @GetMapping("/getAdminId")
+    public Long getAdminId(@RequestParam("username") String username){
+        return adminService.getAdminId(username);
+    }
+
     public static class ObjectDto {
         private String objectName;
         private String objectDesc;
         private String objectLocation;
         private String NfcId;
         private Long objectId;
+        private Long adminId;
 
         public String getObjectName() {
             return objectName;
@@ -84,11 +91,20 @@ public class AdminController {
             return objectId;
         }
 
-        public void setNfcId(String nfcId) {
-            NfcId = nfcId;
-        }
         public String getNfcId() {
             return NfcId;
+        }
+
+        public Long getAdminId() {
+            return adminId;
+        }
+
+        public void setNfcId(String NfcId) {
+            this.NfcId = NfcId;
+        }
+
+        public void setAdminId(Long adminId) {
+            this.adminId = adminId;
         }
     }
 
