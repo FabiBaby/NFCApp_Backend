@@ -17,8 +17,8 @@ public class ObjectController {
     }
 
     @GetMapping("/getObjectInfoByNfcId")  // Maps HTTP GET requests to "/getObjectInfoByNfcId", handling them with this method
-    public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String nfcId) {  // Accepts an NFC ID as a request parameter
-        ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(nfcId);  // Retrieves an object entity based on the NFC ID
+    public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String NfcId) {  // Accepts an NFC ID as a request parameter
+        ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(NfcId);  // Retrieves an object entity based on the NFC ID
         if (objectEntity == null) {  // Checks if no entity was found for the given NFC ID
             return ResponseEntity.notFound().build();  // Returns a 404 Not Found response if no object is found
         }
