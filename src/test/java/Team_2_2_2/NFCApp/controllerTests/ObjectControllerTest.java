@@ -1,4 +1,4 @@
-package Team_2_2_2.NFCApp;
+package Team_2_2_2.NFCApp.controllerTests;
 
 import Team_2_2_2.NFCApp.controllers.ObjectController;
 import Team_2_2_2.NFCApp.entities.ObjectEntity;

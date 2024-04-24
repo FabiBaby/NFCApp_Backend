@@ -1,4 +1,4 @@
-package Team_2_2_2.NFCApp;
+package Team_2_2_2.NFCApp.controllerTests;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.hasSize;
