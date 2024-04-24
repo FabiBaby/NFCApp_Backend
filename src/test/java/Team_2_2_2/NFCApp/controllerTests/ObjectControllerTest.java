@@ -26,32 +26,32 @@ public class ObjectControllerTest {
 
     @Test // Test retrieving object info by NFC ID successfully
     public void testGetObjectInfoByNfcIdSuccess() throws Exception {
-        String nfcId = "NFC123";
-        ObjectEntity objectEntity = new ObjectEntity("Object Name", "Description", "Location", nfcId, 1L);
+        String NfcId = "NFC123";
+        ObjectEntity objectEntity = new ObjectEntity("Object Name", "Description", "Location", NfcId, 1L);
 
         // Mock the behavior of objectService to return the objectEntity when the NFC ID is provided
-        when(objectService.getObjectInfoByNfcId(nfcId)).thenReturn(objectEntity);
+        when(objectService.getObjectInfoByNfcId(NfcId)).thenReturn(objectEntity);
 
         // Perform the GET request and verify the response
         mockMvc.perform(get("/objects/getObjectInfoByNfcId")
-                        .param("nfcId", nfcId))
+                        .param("NfcId", NfcId))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.objectName", is("Object Name")))
                 .andExpect(jsonPath("$.objectDesc", is("Description")))
                 .andExpect(jsonPath("$.objectLocation", is("Location")))
-                .andExpect(jsonPath("$.nfcId", is(nfcId)));
+                .andExpect(jsonPath("$.nfcId", is(NfcId)));
     }
 
     @Test // Test retrieving object info by NFC ID when no object is found
     public void testGetObjectInfoByNfcIdNotFound() throws Exception {
-        String nfcId = "NFC999";  // Assume this NFC ID does not correspond to any object
+        String NfcId = "NFC999";  // Assume this NFC ID does not correspond to any object
 
         // Mock the behavior of objectService to return null when the NFC ID is not found
-        when(objectService.getObjectInfoByNfcId(nfcId)).thenReturn(null);
+        when(objectService.getObjectInfoByNfcId(NfcId)).thenReturn(null);
 
         // Perform the GET request and verify the response is 404 Not Found
         mockMvc.perform(get("/admin/getObjectInfoByNfcId")
-                        .param("nfcId", nfcId))
+                        .param("NfcId", NfcId))
                 .andExpect(status().isNotFound());
     }
 
