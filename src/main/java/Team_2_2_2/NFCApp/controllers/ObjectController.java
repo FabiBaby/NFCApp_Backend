@@ -6,22 +6,22 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/objects")
+@RestController  // Marks this class as a controller with @ResponseBody, meaning that methods return values are bound to the web response body
+@RequestMapping("/objects")  // Maps all HTTP requests that start with "/objects" to methods in this controller
 public class ObjectController {
-    private final ObjectService objectService;
+    private final ObjectService objectService;  // Declares a dependency on ObjectService
 
-    @Autowired
+    @Autowired  // Marks the constructor for dependency injection of ObjectService
     public ObjectController(ObjectService objectService) {
-        this.objectService = objectService;
+        this.objectService = objectService;  // Injects the object service into the controller
     }
 
-    @GetMapping("/getObjectInfoByNfcId")
-    public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String NfcId) {
-        ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(NfcId);
-        if(objectEntity == null) {
-            return ResponseEntity.notFound().build();
+    @GetMapping("/getObjectInfoByNfcId")  // Maps HTTP GET requests to "/getObjectInfoByNfcId", handling them with this method
+    public ResponseEntity<ObjectEntity> getObjectInfoByNfcId(@RequestParam String nfcId) {  // Accepts an NFC ID as a request parameter
+        ObjectEntity objectEntity = objectService.getObjectInfoByNfcId(nfcId);  // Retrieves an object entity based on the NFC ID
+        if (objectEntity == null) {  // Checks if no entity was found for the given NFC ID
+            return ResponseEntity.notFound().build();  // Returns a 404 Not Found response if no object is found
         }
-        return ResponseEntity.ok(objectEntity);
+        return ResponseEntity.ok(objectEntity);  // Returns the found object entity with an OK status
     }
 }

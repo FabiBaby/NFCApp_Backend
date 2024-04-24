@@ -4,24 +4,26 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-@Entity
-@Table(name = "admin")
+@Entity  // Specifies that this class is an entity in the context of persistence
+@Table(name = "admin")  // Specifies the table in the database with which this entity is associated
 public class AdminEntity {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id  // Marks this field as the primary key of the entity
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // Configures the way of increment of the specified column(field)
     private Long adminId;
 
-    @Column(unique=true, nullable=false)
+    @Column(unique=true, nullable=false)  // Specifies that username must be unique and not null
     private String username;
 
-    @Column(nullable = false)
+    @Column(nullable = false)  // Specifies that the password cannot be null
     private String password;
 
+    // Constructor with parameters to initialize the admin entity
     public AdminEntity(String username, String password) {
         this.username = username;
         this.password = password;
     }
 
+    // Default constructor required for JPA
     public AdminEntity() {
 
     }
